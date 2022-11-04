@@ -3,7 +3,7 @@
 You must have the following installed to work with Kubernetes on your local machine:
 - some type of hyperviser/virtual machine (e.g. Hyper-V for Windows)
 - Docker
-- Kubectl
+- kubectl
 - minikube
 
 
@@ -17,15 +17,16 @@ The server pod - client pod communication code and the deployment code are alrea
 
 ## step 0: directory set up (technically optional for this task)
 Since the current base code does not require additional requirements, it still work even without setting up a virtual environment and installing dependencies in requirements.txt (it's an empty file). However, if you prefer to set them up for good practice or if you do add additional dependencies, please set them up:
-create virutal environment
+
+Create virutal environment
 ```
 virtualenv -p /usr/bin/python3 venv
 ```
-activate venv
+Activate venv
 ```
 source venv/bin/activate
 ```
-install dependencies
+Install dependencies
 ```
 python3 -m pip install -r requirements.txt
 ```
@@ -49,12 +50,15 @@ cd /client
 docker build -t clat-client .
 ```
 
-You can run the "$ docker images" command to double check if the containers have been successfully created
+You can run the "$ docker images" command to double check if the containers have been successfully created.
 
 
 ## step 2: deploy to Kubernetes 
 Create the server and client deployments using yaml files
 ```
+# cd back into base directory
+cd ..
+
 # server deployment
 kubectl apply -f server/server-deployment.yaml
 
@@ -73,11 +77,11 @@ If everything has been successful, your 2 pods should be communicating now!
 
 You can see the messages being printed out by the server pod by running
 ```
-kubectl logs -f deployment.apps/client-deployment
+kubectl logs -f deployment.apps/server-deployment
 ```
 
 You can see the messages being printed out by the client pod by running
 ```
-kubectl logs -f deployment.apps/server-deployment
+kubectl logs -f deployment.apps/client-deployment
 ```
 tip: run them on 2 different windows to observe both pods simultaneously!
